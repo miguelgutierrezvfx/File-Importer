@@ -1,0 +1,39 @@
+import os, sys
+
+OBJ = hou.node("/obj")
+
+#extensiones = input("Set valid extensions:")
+
+extensiones = ["obj", "fbx", "sc"]
+
+importer_name = "Importer"
+
+for node in OBJ.children():
+    if node.name() == importer_name:
+        node.destroy()
+        
+importer = OBJ.createNode("geo", importer_name)
+
+dir = hou.ui.selectFile(title="Select a directory", file_type=hou.fileType.Directory)
+
+expanded_dir = hou.expandString(dir)
+
+obj_files = os.listdir(expanded_dir)
+
+merge_node = importer.createNode("merge", "merge_objs")
+
+for index, obj in enumerate(obj_files):
+    elementos = obj.rpartition(".")
+    extension = elementos[2].lower()
+    nombre = elementos[0].lower()
+    
+    if extension in extensiones:
+        file_node = importer.createNode("file", nombre)
+        full_path = "{a}{b}.{c}".format(a=expanded_dir, b=nombre, c=extension)
+        file_node.parm("file").set(full_path)
+        
+        merge_node.setInput(index, file_node)
+        
+importer.layoutChildren()
+merge_node.setDisplayFlag(True)
+merge_node.setRenderFlag(True)
