@@ -2,8 +2,6 @@ import os, sys
 
 OBJ = hou.node("/obj")
 
-#extensiones = input("Set valid extensions:")
-
 extensiones = ["obj", "fbx", "abc", "sc"]
 
 importer_name = "Importer"
