@@ -4,7 +4,7 @@ OBJ = hou.node("/obj")
 
 #extensiones = input("Set valid extensions:")
 
-extensiones = ["obj", "fbx", "sc"]
+extensiones = ["obj", "fbx", "abc", "sc"]
 
 importer_name = "Importer"
 
