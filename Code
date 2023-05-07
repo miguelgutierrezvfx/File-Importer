@@ -20,7 +20,7 @@ expanded_dir = hou.expandString(dir)
 
 obj_files = os.listdir(expanded_dir)
 
-merge_node = importer.createNode("merge", "merge_objs")
+merge_node = importer.createNode("merge")
 
 for index, obj in enumerate(obj_files):
     elementos = obj.rpartition(".")
